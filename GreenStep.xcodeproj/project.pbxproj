@@ -6,12 +6,17 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1E0C39A72E2FCDDA004B62A2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1E0C39A62E2FCDDA004B62A2 /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		1E0C38802E2FC701004B62A2 /* GreenStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreenStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E0C39A62E2FCDDA004B62A2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1E0C38922E2FC702004B62A2 /* Exceptions for "GreenStep" folder in "GreenStep" target */ = {
+		1E0C3AB52E3205BF004B62A2 /* Exceptions for "GreenStep" folder in "GreenStep" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -21,10 +26,10 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		1E0C38822E2FC701004B62A2 /* GreenStep */ = {
+		1E0C3AAE2E3205BF004B62A2 /* GreenStep */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				1E0C38922E2FC702004B62A2 /* Exceptions for "GreenStep" folder in "GreenStep" target */,
+				1E0C3AB52E3205BF004B62A2 /* Exceptions for "GreenStep" folder in "GreenStep" target */,
 			);
 			path = GreenStep;
 			sourceTree = "<group>";
@@ -45,7 +50,8 @@
 		1E0C38772E2FC701004B62A2 = {
 			isa = PBXGroup;
 			children = (
-				1E0C38822E2FC701004B62A2 /* GreenStep */,
+				1E0C39A62E2FCDDA004B62A2 /* .gitignore */,
+				1E0C3AAE2E3205BF004B62A2 /* GreenStep */,
 				1E0C38812E2FC701004B62A2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,7 +80,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				1E0C38822E2FC701004B62A2 /* GreenStep */,
+				1E0C3AAE2E3205BF004B62A2 /* GreenStep */,
 			);
 			name = GreenStep;
 			packageProductDependencies = (
@@ -122,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E0C39A72E2FCDDA004B62A2 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
