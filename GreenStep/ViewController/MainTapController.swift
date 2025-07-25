@@ -13,8 +13,7 @@ class MainTapController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewControllers()
-        setUpTabBar()
+        setUp()
     }
     
 }
@@ -23,9 +22,14 @@ class MainTapController: UITabBarController {
 
 extension MainTapController {
     
+    private func setUp() {
+        setUpTabBar()
+        configureViewControllers()
+    }
+    
     func setUpTabBar() {
         tabBar.unselectedItemTintColor = .gray
-        tabBar.tintColor = .green
+        tabBar.tintColor = .systemGreen
     }
     
     func configureViewControllers() {
@@ -48,6 +52,7 @@ extension MainTapController {
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.tabBarItem.image = tabBarImage
         navigationController.tabBarItem.selectedImage = tabBarImage
+        navigationController.navigationBar.tintColor = .systemGreen
         return navigationController
     }
 }
