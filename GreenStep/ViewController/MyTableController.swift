@@ -12,7 +12,9 @@ class MyTableController: UICollectionViewController {
     
     //MARK: - Properties
     
-    let pinterestLayout = PinterestLayout()
+    private var pinterestLayout: PinterestLayout {
+            return collectionViewLayout as! PinterestLayout
+        }
     
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -45,11 +47,12 @@ extension MyTableController {
     func setUpCollectionView() {
         collectionView.register(MyTableCell.self, forCellWithReuseIdentifier: MyTableCell.identifier)
         collectionView.backgroundColor = .systemBackground
+        
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 25
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -69,7 +72,7 @@ extension MyTableController {
 extension MyTableController: PinterestLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 100
     }
     
     
