@@ -36,7 +36,7 @@ extension MainTapController {
         
         let home = navigationControllerWrapper(tabBarImage: UIImage(systemName: "house.fill")!, rootViewController: HomeController())
         
-        let table = navigationControllerWrapper(tabBarImage: UIImage(systemName: "fork.knife.circle.fill")!, rootViewController: TableController())
+        let table = navigationControllerWrapper(tabBarImage: UIImage(systemName: "fork.knife.circle.fill")!, rootViewController: MyTableController(collectionViewLayout:PinterestLayout()))
         
         let profile = navigationControllerWrapper(tabBarImage: UIImage(systemName: "person.crop.circle.fill")!, rootViewController: ProfileController())
         

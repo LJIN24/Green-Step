@@ -40,6 +40,7 @@ class HomeController: UIViewController {
         return button
     }()
     
+    //MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class HomeController: UIViewController {
     // MARK: - Action
     
     @objc func handleAddGreenStep() {
-        let controller = SelectImageController()
+        let controller = UploadImageController()
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -90,6 +91,8 @@ extension HomeController {
         addGreenStepButton.anchor(bottom: view.bottomAnchor, paddingBottom: 100)
     }
 }
+
+
 #Preview {
     HomeController()
 }
