@@ -17,13 +17,14 @@ class ProfileController: UIViewController {
         return imageView
     }()
     
-    private var popupInfo: UIButton = {
+    private lazy var popupInfo: UIButton = {
         let button = UIButton(type: .system)
         let config = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular)
         let image  = UIImage(systemName: "questionmark.circle.fill", withConfiguration: config)
         button.setImage(image, for: .normal)
         button.tintColor = .systemGreen
         button.layer.cornerRadius = 12.5
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
     
@@ -52,6 +53,11 @@ class ProfileController: UIViewController {
         navigationItem.title = "Profile"
     }
     
+    @objc private func tap() {
+         let popupVC = CustomPopupViewController()
+         present(popupVC, animated: true)
+     }
+    
 }
 
 //MARK: - UI & Layout
@@ -73,9 +79,8 @@ extension ProfileController {
     
     func setDivierUI() {
         view.addSubview(divider)
-        divider.setDimensions(height: 1, width: view.frame.width)
-        divider.anchor(left: view.leftAnchor, paddingLeft: 20)
-        divider.anchor(right: view.rightAnchor, paddingRight: 20)
+        divider.setDimensions(height: 1, width: view.frame.width - 40)
+        divider.centerX(inView: view)
         divider.anchor(top: stat1.bottomAnchor, paddingTop: 0)
     }
     
@@ -96,7 +101,7 @@ extension ProfileController {
         view.addSubview(popupInfo)
         popupInfo.setDimensions(height: 25, width: 25)
         popupInfo.anchor(right: view.rightAnchor, paddingRight: 25)
-        popupInfo.anchor(top: view.topAnchor, paddingTop: 50)
+        popupInfo.anchor(top: view.topAnchor, paddingTop: 75)
     }
 
 }
