@@ -23,10 +23,13 @@ class MyTableCell: UICollectionViewCell, Cellidentity {
     
     //MARK: - Properties
     
+    
+    
     private var postImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
         return imageView
     }()
     
@@ -35,7 +38,7 @@ class MyTableCell: UICollectionViewCell, Cellidentity {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .red
+        setUp()
     }
     
     required init?(coder: NSCoder) {
@@ -46,11 +49,16 @@ class MyTableCell: UICollectionViewCell, Cellidentity {
 
 extension MyTableCell {
     func setUp() {
-        
+        setCellUI()
+        backgroundColor = .systemBackground
     }
     
     func setCellUI() {
         addSubview(postImage)
-        postImage.center(inView: self)
+        postImage.fillSuperview()
+    }
+    
+    func configureWithData(with post : Post) {
+        postImage.image = post.image
     }
 }
