@@ -5,8 +5,9 @@
 //  Created by JIN on 7/28/25.
 //
 
-import Foundation
 import UIKit
+import RealmSwift
+
 
 
 func newSizeImageWidthDownloadedResource(image: UIImage) -> UIImage {
@@ -16,13 +17,29 @@ func newSizeImageWidthDownloadedResource(image: UIImage) -> UIImage {
 }
 
 struct Post {
-    let originalImage: UIImage
-    let resizedImage: UIImage
-    let title: String?
+    let id: UUID
+    let title: String
+    let createdAt = Date()
+    var image: UIImage?
     
-    init(originalImage: UIImage, title: String? = nil) {
-        self.originalImage = originalImage
-        self.resizedImage = newSizeImageWidthDownloadedResource(image: originalImage)
+    init(id: UUID = UUID(), title: String, image: UIImage?) {
+        self.id = id
         self.title = title
+        self.image = image
     }
+    
+    var resizeImage: UIImage? {
+        guard let image = image else { return nil }
+        return newSizeImageWidthDownloadedResource(image: image)
+    }
+    
 }
+
+extension Post {
+    func toEntity() -> PostEntity {
+        PostEntity(id: id.uuidString, title: title, createdAt: createdAt)
+    }
+    
+    
+}
+
