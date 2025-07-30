@@ -11,7 +11,11 @@ class  UploadImageController: UIViewController {
     
     // MARK: - Properties
     
-    private var libraryButton: UIButton = {
+    private var postImage: UIImage?
+    
+    let viewModel = UploadPostViewModel()
+    
+    private lazy var libraryButton: UIButton = {
         let button = UIButton(type: .system)
         let config = UIImage.SymbolConfiguration(pointSize: 35, weight: .regular)
         let image  = UIImage(systemName: "photo", withConfiguration: config)
@@ -20,10 +24,11 @@ class  UploadImageController: UIViewController {
         button.layer.borderColor = UIColor.gray.cgColor
         button.layer.cornerRadius = 8
         button.tintColor = .gray
+        button.addTarget(self, action: #selector(handleLibraryButton), for: .touchUpInside)
         return button
     }()
     
-    private var cameraButton: UIButton = {
+    private lazy var cameraButton: UIButton = {
         let button = UIButton(type: .system)
         let config = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
         let image  = UIImage(systemName: "camera.fill", withConfiguration: config)
@@ -31,6 +36,7 @@ class  UploadImageController: UIViewController {
         button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 25
         button.tintColor = .black
+        button.addTarget(self, action: #selector(handleCarmeraButton), for: .touchUpInside)
         return button
     }()
     
@@ -47,13 +53,14 @@ class  UploadImageController: UIViewController {
     }()
     
     
-    private var uploladImageButton: UIButton = {
+    private lazy var uploladImageButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("추가하기", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemGreen
         button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(handleUploadButton), for: .touchUpInside)
         return button
     }()
     
@@ -70,6 +77,35 @@ class  UploadImageController: UIViewController {
     @objc private func didTapTextView(_ sender: Any) {
           view.endEditing(true)
       }
+    
+    @objc private func handleLibraryButton() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    @objc private func handleCarmeraButton() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    @objc private func handleUploadButton() {
+        let rawText = textArea.text ?? ""
+        let title: String
+        
+          if rawText == textViewPlaceHolder {
+              title = ""
+          } else {
+              title = rawText.trimmingCharacters(in: .whitespacesAndNewlines)
+          }
+        self.navigationController?.popViewController(animated: true)
+        viewModel.uploadPost(title: title, image: postImage)
+    }
+    
 
 }
 
@@ -135,6 +171,23 @@ extension UploadImageController {
 
     }
 
+}
+
+//MARK: - Delegate
+
+extension UploadImageController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.editedImage] as? UIImage else { return }
+        postImage = selectedImage
+                
+        libraryButton.clipsToBounds = true
+        libraryButton.setImage(selectedImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }
 
 
