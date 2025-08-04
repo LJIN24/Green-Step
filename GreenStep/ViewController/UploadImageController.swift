@@ -58,8 +58,9 @@ class  UploadImageController: UIViewController {
         button.setTitle("추가하기", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemGreen
+        button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 5
+        button.isEnabled = false
         button.addTarget(self, action: #selector(handleUploadButton), for: .touchUpInside)
         return button
     }()
@@ -69,6 +70,7 @@ class  UploadImageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        setBinding()
    
     }
     
@@ -105,7 +107,6 @@ class  UploadImageController: UIViewController {
         self.navigationController?.popViewController(animated: true)
         viewModel.uploadPost(title: title, image: postImage)
     }
-    
 
 }
 
@@ -180,7 +181,7 @@ extension UploadImageController: UIImagePickerControllerDelegate & UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
         postImage = selectedImage
-                
+        viewModel.postImage = selectedImage
         libraryButton.clipsToBounds = true
         libraryButton.setImage(selectedImage.withRenderingMode(.alwaysOriginal), for: .normal)
         
@@ -188,6 +189,17 @@ extension UploadImageController: UIImagePickerControllerDelegate & UINavigationC
     }
     
     
+}
+//MARK: - Set Binding
+
+extension UploadImageController {
+
+    private func setBinding() {
+        viewModel.didChangeImageValue = { [weak self] isEnabled in
+            self?.uploladImageButton.isEnabled = isEnabled
+            self?.uploladImageButton.backgroundColor = .systemGreen
+        }
+    }
 }
 
 

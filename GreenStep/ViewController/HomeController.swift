@@ -11,6 +11,19 @@ class HomeController: UIViewController {
     
     // MARK: - Properties
     
+    let viewModel = HomeViewModel()
+    
+    private lazy var resetButton: UIButton = {
+        let button = UIButton(type: .system)
+        let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .regular)
+        let image  = UIImage(systemName: "arrow.trianglehead.clockwise.rotate.90", withConfiguration: config)
+        button.setImage(image, for: .normal)
+        button.tintColor = .systemGreen
+        button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(handleResetButton), for: .touchUpInside)
+        return button
+    }()
+    
     private var footPrintImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "footprint")
@@ -19,7 +32,6 @@ class HomeController: UIViewController {
     
     private var todayTotalCo2Label: UILabel = {
         let label = UILabel()
-        label.attributedText(firstPart: "34.56", secondPart: "kg")
         return label
     }()
     
@@ -45,7 +57,10 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureData()
+        addObserver()
     }
+
     
     // MARK: - Action
     
@@ -54,12 +69,40 @@ class HomeController: UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    @objc func handleResetButton() {
+        let alert = UIAlertController(
+            title: "정말 초기화 하시겠습니까?",
+            message: "이 작업은 되돌릴 수 없습니다.",
+            preferredStyle: .alert
+        )
+       
+       alert.view.tintColor = .systemGreen
 
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        alert.addAction(cancel)
+
+        let delete = UIAlertAction(title: "초기화", style: .destructive) { [weak self] _ in
+            self?.viewModel.resetUserData()
+        }
+        alert.addAction(delete)
+
+        present(alert, animated: true)
+    
+        print("reset")
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 // MARK: - UI & Layout
 
 extension HomeController {
+    
+    private func configureData() {
+        todayTotalCo2Label.attributedText(firstPart: "\(viewModel.user?.today ?? 0)", secondPart: "kg")
+    }
     
     func configureUI() {
         navigationItem.title = "GreenStep"
@@ -89,7 +132,39 @@ extension HomeController {
         addGreenStepButton.setDimensions(height: 45, width: 320)
         addGreenStepButton.centerX(inView: view)
         addGreenStepButton.anchor(bottom: view.bottomAnchor, paddingBottom: 100)
+        view.addSubview(resetButton)
+        resetButton.setDimensions(height: 28, width: 28)
+        resetButton.anchor(top: view.topAnchor, paddingTop: 100)
+        resetButton.anchor(right: view.rightAnchor, paddingRight: 30)
     }
+}
+
+//MARK: - addOberver
+
+extension HomeController {
+    
+    
+    func addObserver () {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadData),
+            name: .didUploadPost,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadData),
+            name: .resetUserData,
+            object: nil
+        )
+    }
+        
+      @objc func reloadData() {
+          self.viewModel.fetchUser()
+          self.configureData()
+      }
+    
 }
 
 

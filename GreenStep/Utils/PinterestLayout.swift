@@ -41,11 +41,18 @@ final class PinterestLayout: UICollectionViewFlowLayout {
 extension PinterestLayout {
     
     override func prepare() {
+        
+        guard let collectionView = collectionView else {
+              return
+          }
 
-        guard
-            cache.isEmpty,
-            let collectionView = collectionView
-        else {
+        let numberOfItems = collectionView.numberOfItems(inSection: 0)
+         if cache.count != numberOfItems {
+             cache.removeAll()
+             contentHeight = 0
+         }
+        
+        guard cache.isEmpty else {
             return
         }
         

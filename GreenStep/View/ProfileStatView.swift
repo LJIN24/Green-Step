@@ -9,7 +9,6 @@ import UIKit
 
 class ProfileStatView: UIView {
 
-  
     //MARK: - Properties
     
     private var treeImage: UIImageView = {
@@ -90,6 +89,7 @@ extension ProfileStatView {
         setStackView()
     }
     
+    
     func setStackView() {
         addSubview(stackView)
         stackView.center(inView: self)
@@ -100,3 +100,4 @@ extension ProfileStatView {
         bottomStackView.addArrangedSubview(unitLabel)
     }
 }
+    

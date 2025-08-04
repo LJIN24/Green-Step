@@ -18,6 +18,7 @@ class MyTableController: UICollectionViewController {
     
     let viewModel = MyTableViewModel()
     
+    
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +26,9 @@ class MyTableController: UICollectionViewController {
         setTitle()
         setPinterestLayoutDelegate()
         viewModel.fetchPosts()
+        addObserver()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionView.reloadData()
-
-    }
     
     //MARK: - Private Method
     
@@ -41,6 +38,10 @@ class MyTableController: UICollectionViewController {
     
     private func setPinterestLayoutDelegate() {
         pinterestLayout.delegate = self
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
 }
@@ -61,12 +62,14 @@ extension MyTableController {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("DEBUG: numberOfItemsInSection: \(viewModel.posts.count)" )
         return viewModel.posts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyTableCell.identifier, for: indexPath) as! MyTableCell
         cell.configureWithData(with: viewModel.posts[indexPath.row])
+        print("DEBUG: cellForItemAt: \(indexPath.row)")
         return cell
     }
     
@@ -84,13 +87,43 @@ extension MyTableController {
 extension MyTableController: PinterestLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        guard let height =  viewModel.posts[indexPath.row].resizeImage?.size.height else { return 200}
+        guard let height = viewModel.posts[indexPath.row].resizeImage?.size.height else { return 200}
         return height
        
     }
     
     
 }
+
+//MARK: - Add Observer
+
+extension MyTableController {
+    
+    func addObserver () {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadData),
+            name: .didUploadPost,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(reloadData),
+            name: .didDeleteCell,
+            object: nil
+        )
+    }
+        
+      @objc func reloadData() {
+          viewModel.fetchPosts()
+          print("posts after fetch:", viewModel.posts.count)
+          DispatchQueue.main.async {
+              self.collectionView.reloadData()
+          }
+      }
+}
+
 
 #Preview {
     MyTableController(collectionViewLayout: PinterestLayout())

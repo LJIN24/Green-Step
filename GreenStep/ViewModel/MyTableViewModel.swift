@@ -9,14 +9,13 @@ import Foundation
 
 class MyTableViewModel {
     
-    @Published var posts: [Post] = []
+    var posts: [Post] = []
     
     
     let postRepository = PostRepository()
     
     func fetchPosts() {
         self.posts = postRepository.fetchAll()
-        print(self.posts)
     }
     
 }
