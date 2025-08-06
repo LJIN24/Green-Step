@@ -9,7 +9,22 @@
 /* Begin PBXBuildFile section */
 		1E0C39A72E2FCDDA004B62A2 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1E0C39A62E2FCDDA004B62A2 /* .gitignore */; };
 		1E0C3AFE2E3669B9004B62A2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1E0C3AFD2E3669B9004B62A2 /* RealmSwift */; };
+		1E0C3B612E4377DA004B62A2 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1E0C3AFD2E3669B9004B62A2 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1E0C3B622E4377DA004B62A2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1E0C3B612E4377DA004B62A2 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1E0C38802E2FC701004B62A2 /* GreenStep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreenStep.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +91,7 @@
 				1E0C387C2E2FC701004B62A2 /* Sources */,
 				1E0C387D2E2FC701004B62A2 /* Frameworks */,
 				1E0C387E2E2FC701004B62A2 /* Resources */,
+				1E0C3B622E4377DA004B62A2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
