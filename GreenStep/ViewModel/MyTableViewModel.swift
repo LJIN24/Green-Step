@@ -12,10 +12,14 @@ class MyTableViewModel {
     var posts: [Post] = []
     
     
-    let postRepository = PostRepository()
+    private let respository: PostRepositoryProtocol
+    
+    init(postRepository: PostRepositoryProtocol) {
+        self.respository = postRepository
+    }
     
     func fetchPosts() {
-        self.posts = postRepository.fetchAll()
+        self.posts = respository.fetchAll()
     }
     
 }

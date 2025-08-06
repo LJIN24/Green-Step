@@ -13,7 +13,7 @@ class  UploadImageController: UIViewController {
     
     private var postImage: UIImage?
     
-    let viewModel = UploadPostViewModel()
+    let viewModel: UploadPostViewModel
     
     private lazy var libraryButton: UIButton = {
         let button = UIButton(type: .system)
@@ -64,6 +64,18 @@ class  UploadImageController: UIViewController {
         button.addTarget(self, action: #selector(handleUploadButton), for: .touchUpInside)
         return button
     }()
+    
+    //MARK: - Initializer
+    
+    init(viewModel: UploadPostViewModel) {
+          self.viewModel = viewModel
+          super.init(nibName: nil, bundle: nil)
+      }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     // MARK: - LifeCycle
 
@@ -204,5 +216,5 @@ extension UploadImageController {
 
 
 #Preview {
-    UploadImageController()
+    UploadImageController(viewModel: UploadPostViewModel(postRepository: PostRepository(realmStorage: RealmStorage(), imageStorage: ImageStorage())))
 }

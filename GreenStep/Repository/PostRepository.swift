@@ -9,20 +9,20 @@ import RealmSwift
 import UIKit
 
 
-protocol UserPostRepositoryType {
+protocol PostRepositoryProtocol {
     func save(_ post: Post)
     func fetchAll() -> [Post]
     func delete(_ post: Post)
 }
 
-final class PostRepository: UserPostRepositoryType {
+final class PostRepository: PostRepositoryProtocol {
     // MARK: - Dependencies
     private let realmStorage: RealmStorageProtocol
     private let imageStorage: ImageStorageProtocol
 
     init(
-        realmStorage: RealmStorageProtocol = RealmStorage(),
-        imageStorage: ImageStorageProtocol = ImageStorage()
+        realmStorage: RealmStorageProtocol,
+        imageStorage: ImageStorageProtocol
     ) {
         self.realmStorage = realmStorage
         self.imageStorage = imageStorage

@@ -16,7 +16,18 @@ class MyTableController: UICollectionViewController {
             return collectionViewLayout as! PinterestLayout
         }
     
-    let viewModel = MyTableViewModel()
+    private let viewModel: MyTableViewModel
+    
+    // MARK: - Initialization
+    
+    init(viewModel: MyTableViewModel, collectionViewLayout: UICollectionViewLayout) {
+       self.viewModel = viewModel
+       super.init(collectionViewLayout: collectionViewLayout)
+    }
+     
+     required init?(coder: NSCoder) {
+       fatalError("init(coder:) has not been implemented")
+     }
     
     
     //MARK: - LifeCycle
@@ -75,7 +86,7 @@ extension MyTableController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let post = viewModel.posts[indexPath.row]
-        let detailVC = DetailViewController(post: post)
+        let detailVC = DIContainer.shared.makeDetailViewController(post: post)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -126,5 +137,5 @@ extension MyTableController {
 
 
 #Preview {
-    MyTableController(collectionViewLayout: PinterestLayout())
+    MyTableController(viewModel: MyTableViewModel(postRepository: PostRepository(realmStorage: RealmStorage(), imageStorage: ImageStorage())), collectionViewLayout: PinterestLayout())
 }

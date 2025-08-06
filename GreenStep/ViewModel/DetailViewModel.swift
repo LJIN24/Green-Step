@@ -9,7 +9,11 @@ import Foundation
 
 class DetailViewModel {
     
-    let repository = PostRepository()
+    let repository: PostRepositoryProtocol
+    
+    init(repository: PostRepositoryProtocol) {
+        self.repository = repository
+    }
    
     func delete(post: Post) {
         repository.delete(post)

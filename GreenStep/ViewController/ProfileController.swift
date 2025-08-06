@@ -11,7 +11,7 @@ class ProfileController: UIViewController {
     
     //MARK: -Properties
     
-    let viewModel = ProfileViewModel()
+    let viewModel: ProfileViewModel
     
     
     var amountOfCo2 : Double {
@@ -45,6 +45,17 @@ class ProfileController: UIViewController {
     lazy var stat1 = ProfileStatView(frame: .zero, title: "지금까지 내가 심은 나무", imageName: "tree.fill", amountOfCo2e: amountOfCo2, unit: "그루")
     
     lazy var stat2 = ProfileStatView(frame: .zero, title: "지금까지 내가 걸은 그린스텝", imageName: "figure.walk", amountOfCo2e: amountOfCo2 * 6, unit: "Km")
+    
+    // MARK: - Initialization
+    
+    init(viewModel: ProfileViewModel) {
+       self.viewModel = viewModel
+       super.init(nibName: nil, bundle: nil)
+     }
+     
+     required init?(coder: NSCoder) {
+       fatalError("init(coder:) has not been implemented")
+     }
     
     //MARK: - LifeCycle
     
@@ -147,5 +158,5 @@ extension ProfileController {
 }
 
 #Preview {
-    ProfileController()
+    ProfileController(viewModel: ProfileViewModel())
 }

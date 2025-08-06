@@ -11,7 +11,7 @@ class HomeController: UIViewController {
     
     // MARK: - Properties
     
-    let viewModel = HomeViewModel()
+    private let viewModel: HomeViewModel
     
     private lazy var resetButton: UIButton = {
         let button = UIButton(type: .system)
@@ -52,6 +52,17 @@ class HomeController: UIViewController {
         return button
     }()
     
+    // MARK: - Initialization
+     
+    init(viewModel: HomeViewModel) {
+       self.viewModel = viewModel
+       super.init(nibName: nil, bundle: nil)
+     }
+     
+     required init?(coder: NSCoder) {
+       fatalError("init(coder:) has not been implemented")
+     }
+    
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -65,7 +76,7 @@ class HomeController: UIViewController {
     // MARK: - Action
     
     @objc func handleAddGreenStep() {
-        let controller = UploadImageController()
+        let controller = DIContainer.shared.makeUploadImageController()
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -169,5 +180,5 @@ extension HomeController {
 
 
 #Preview {
-    HomeController()
+    HomeController(viewModel: HomeViewModel())
 }

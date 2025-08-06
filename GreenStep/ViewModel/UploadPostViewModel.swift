@@ -10,7 +10,6 @@ import UIKit
 
 class UploadPostViewModel {
     
-    //MARK: Data Binding
     
     var postImage: UIImage? {
         didSet {
@@ -20,12 +19,18 @@ class UploadPostViewModel {
     
     var didChangeImageValue: ((Bool) -> Void)?
     
-    //MARK: - Data update
     
-    let postRepository = PostRepository()
+    let postRepository: PostRepositoryProtocol
+    
+    init (postRepository: PostRepositoryProtocol) {
+        self.postRepository = postRepository
+    }
+    
+    
     let userStorage = UserDefaultsStorage()
-
-   
+    
+    
+    
     func uploadPost(title: String, image: UIImage?) {
         let post = Post(title: title, image: image)
         postRepository.save(post)

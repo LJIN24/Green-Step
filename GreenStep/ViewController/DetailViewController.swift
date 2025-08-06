@@ -13,7 +13,7 @@ class DetailViewController: UIViewController {
     
     let post: Post
     
-    let viewModel = DetailViewModel()
+    let viewModel: DetailViewModel
     
     private var postImage: UIImageView = {
         let imageView = UIImageView()
@@ -54,8 +54,9 @@ class DetailViewController: UIViewController {
     
     //MARK: - Initializer
     
-    init(post: Post) {
+    init(viewModel: DetailViewModel, post: Post) {
           self.post = post
+          self.viewModel = viewModel
           super.init(nibName: nil, bundle: nil)
       }
     

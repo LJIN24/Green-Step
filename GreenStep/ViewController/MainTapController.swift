@@ -34,11 +34,11 @@ extension MainTapController {
     
     func configureViewControllers() {
         
-        let home = navigationControllerWrapper(tabBarImage: UIImage(systemName: "house.fill")!, rootViewController: HomeController())
+        let home = navigationControllerWrapper(tabBarImage: UIImage(systemName: "house.fill")!, rootViewController: DIContainer.shared.makeHomeController())
         
-        let table = navigationControllerWrapper(tabBarImage: UIImage(systemName: "fork.knife.circle.fill")!, rootViewController: MyTableController(collectionViewLayout:PinterestLayout()))
+        let table = navigationControllerWrapper(tabBarImage: UIImage(systemName: "fork.knife.circle.fill")!, rootViewController: DIContainer.shared.makeMyTableController())
         
-        let profile = navigationControllerWrapper(tabBarImage: UIImage(systemName: "person.crop.circle.fill")!, rootViewController: ProfileController())
+        let profile = navigationControllerWrapper(tabBarImage: UIImage(systemName: "person.crop.circle.fill")!, rootViewController: DIContainer.shared.makeProfileController())
         
         viewControllers = [
             home,
