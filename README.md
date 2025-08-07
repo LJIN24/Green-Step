@@ -8,7 +8,9 @@
     
 - **Architecture**
   - MVVM
-  
+    
+![Image](https://github.com/user-attachments/assets/9bbc74e1-b616-4954-bfea-0ecb35e1669e)
+
 - **Library**
   - RealmSwift
 
