@@ -17,3 +17,16 @@
 
 - **Dependency Management**
   - Swift Package Manager
+
+## 📱 앱 동작 화면
+<details>
+ <summary>
+  시연 영상 보기
+ </summary> <br/>
+ 
+| 업로드 화면 | 이미지 화면 | 프로필 화면 |
+|-------------|----------|-------------|
+| ![Image](https://github.com/user-attachments/assets/30983a43-67e2-4a1b-ab00-1c5fc4d0fed0) | ![Image](https://github.com/user-attachments/assets/752df77e-0ca7-4007-b1ea-542a625fd886) | ![Image](https://github.com/user-attachments/assets/3b0a95fb-1e11-47fb-ab72-f1adf1c2c4c0) |
+
+ 
+</details>
